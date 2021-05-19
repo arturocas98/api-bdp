@@ -36,9 +36,10 @@ app.get("/", (req, res) => {
 });
 app.use("/api/empleados", validateToken, require("./routes/empleados.route"));
 app.use("/ip", async (req,res) => {
-  const ip = await publicIp.v4();
+  // const ip = await publicIp.v4();
   res.json({
-    ip: ip
+    ip:req.connection.remoteAddress
+
   });
 });
 /**Conexión a la base de datos */
