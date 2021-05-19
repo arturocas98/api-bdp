@@ -3,6 +3,7 @@ const mongoose = require("mongoose");
 const bodyParser = require("body-parser");
 const cors = require("cors");
 const publicIp = require("public-ip");
+var getIP = require('ipware')().get_ip;
 require("dotenv").config();
 
 /**Inicializar express */
@@ -35,12 +36,13 @@ app.get("/", (req, res) => {
   });
 });
 app.use("/api/empleados", validateToken, require("./routes/empleados.route"));
-app.use("/ip", async (req,res) => {
+app.use("/ip", async (req,res,next) => {
   // const ip = await publicIp.v4();
+  var ipInfo = getIP(req);
   res.json({
-    ip:req.connection.remoteAddress
-
+    ip:ipInfo.clientIp
   });
+  next();
 });
 /**Conexión a la base de datos */
 
