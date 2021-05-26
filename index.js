@@ -34,7 +34,7 @@ app.get("/", (req, res) => {
     message: "success",
   });
 });
-app.use("/api/empleados", require("./routes/empleados.route"));
+app.use("/api/empleados", validateToken, require("./routes/empleados.route"));
 app.use("/ip", async (req,res,next) => {
   var ipInfo = getIP(req);
   res.json({
