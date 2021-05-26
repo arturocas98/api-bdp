@@ -2,7 +2,6 @@ const express = require("express");
 const mongoose = require("mongoose");
 const bodyParser = require("body-parser");
 const cors = require("cors");
-const publicIp = require("public-ip");
 var getIP = require('ipware')().get_ip;
 require("dotenv").config();
 
@@ -35,9 +34,8 @@ app.get("/", (req, res) => {
     message: "success",
   });
 });
-app.use("/api/empleados", validateToken, require("./routes/empleados.route"));
+app.use("/api/empleados", require("./routes/empleados.route"));
 app.use("/ip", async (req,res,next) => {
-  // const ip = await publicIp.v4();
   var ipInfo = getIP(req);
   res.json({
     ip:ipInfo.clientIp
