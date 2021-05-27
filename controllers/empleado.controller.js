@@ -7,15 +7,9 @@ EmpleadoController.getEmpleados = async (req, res) => {
   res.json(empleados);
 };
 
-EmpleadoController.createEmpleado = async (req, res) => {
+EmpleadoController.registraEmpleado = async (req, res) => {
   const { Datos } = req.body;
-  const isUsernameExist = await Empleado.findOne({ username: Datos.Usuario });
-  if (isUsernameExist) {
-    return res
-      .status(400)
-      .json({ error: true, message: "El usuario ya esta registrado" });
-  }
-
+  
   try {
     const empleado = new Empleado(Datos);
 
