@@ -23,7 +23,7 @@ const schemaLogin = Joi.object({
 router.post("/token", async (req, res) => {
   // const { error } = schemaLogin.validate(req.body);
   // if (error) return res.status(400).json({ error: error.details[0].message });
-  console.log(req.query.client_id);
+  // console.log(req.query.client_id);
   const user = await User.findOne({ _id: req.query.client_id,client_secret:req.query.client_secret });
   if (!user) return res.status(400).json({ error: "Usuario no encontrado" });
 

@@ -1,19 +1,32 @@
 const Empleado = require("../models/empleado");
 const VerificaUsuario = require('../models/verificaUsuario');
+const RegistraUsuario = require('../models/registraUsuario');
 const EmpleadoController = {};
+
 
 EmpleadoController.getEmpleados = async (req, res) => {
   const empleados = await Empleado.find();
   res.json(empleados);
 };
 
-EmpleadoController.registraEmpleado = async (req, res) => {
+
+EmpleadoController.createEmpleado = async (req,res)=>{
+  const empleado = new Empleado(req.body);
+  await empleado.save();
+  res.json({
+    'estado':'Empleado guardado'
+  });
+  // console.log(req.body);
+  // res.json('recibido');
+}
+
+EmpleadoController.registraUsuario = async (req, res) => {
   const { Datos } = req.body;
   
   try {
-    const empleado = new Empleado(Datos);
+    const resgitraUsuario = new RegistraUsuario(Datos);
 
-    await empleado.save();
+    await resgitraUsuario.save();
     res.status(201).json({
       NewRegistraUserResult: {
         CodError: "",
